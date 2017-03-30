@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-public class ProxyPeople  implements MethodInterceptor {
+public class ProxyPeople implements MethodInterceptor {
 	 
 	    public Object intercept(Object obj, Method method, Object[] arg, MethodProxy proxy) throws Throwable {
 	    	if(method.getName().equals("smile")) {

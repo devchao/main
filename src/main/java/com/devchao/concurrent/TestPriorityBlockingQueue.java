@@ -2,16 +2,20 @@ package com.devchao.concurrent;
 
 import java.util.concurrent.PriorityBlockingQueue;
 
+/**
+ * add时，序号小的排前面，序号相同排后面
+ * get时，序号小的排前面，序号相同靠运气
+ */
 public class TestPriorityBlockingQueue {
 	
 	public static void main(String[] args) throws InterruptedException {
 		PriorityBlockingQueue<Obj2> queue = new PriorityBlockingQueue<Obj2>();
-		Obj2 obj = new Obj2(100);
-		Obj2 obj2 = new Obj2(28810);
-		Obj2 obj3 = new Obj2(5050);
-		Obj2 obj4 = new Obj2(1010);
-		Obj2 obj5 = new Obj2(41020);
-		Obj2 obj6 = new Obj2(1100);
+		Obj2 obj = new Obj2(1000);
+		Obj2 obj2 = new Obj2(1000);
+		Obj2 obj3 = new Obj2(1000);
+		Obj2 obj4 = new Obj2(1000);
+		Obj2 obj5 = new Obj2(1000);
+		Obj2 obj6 = new Obj2(100);
 		queue.put(obj);
 		queue.put(obj2);
 		queue.put(obj3);
