@@ -1,11 +1,13 @@
 package com.devchao.base;
 
+import java.lang.management.ManagementFactory;
+
 import net.sf.cglib.proxy.Enhancer;
 
 public class Test {
 	
 	public static void main(String[] args) throws ClassNotFoundException {
-		customsClassLoaderTest();
+		perMillisCal();
 	}
 	
 	/**
@@ -100,10 +102,24 @@ public class Test {
 		//c.getClassLoader().loadClass("com.devchao.base.SimpleClass");//不会执行static代码块
 	}
 	
+	public static void classCache() {
+		try {
+			CacheObj obj = new CacheObj();
+			System.out.println(obj);
+			
+			MyClassLoader loader = new MyClassLoader();
+			loader.loadClass("com.devchao.base.CacheObj");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	//================================================================
 	/**
 	 * 双亲委派模型，即使是自定义的ClassLoader，也会先尝试ParentLoader
-	 * 作用是防止不同loader加载了同一个类，导致出现多份同样的类在内存中
+	 * 每个loader都会各自缓存加载过的类
+	 * 作用是防止不同loader加载了同一个类，导致出现多份同样的类在内存中，保证程序安全稳定运行
 	 * class.forName会使用调用者的ClassLoader
 	 */
 	public static void customsClassLoaderTest(){
@@ -129,5 +145,30 @@ public class Test {
 		}
 		
 	}
+
+	public static void getPid() {
+		// get name representing the running Java virtual machine.
+		String name = ManagementFactory.getRuntimeMXBean().getName();
+		System.out.println(name);
+		// get pid
+		String pid = name.split("@")[0];
+		System.out.println("pid = " + pid);
+		try {
+			Thread.sleep(100000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	
+	public static void perMillisCal() {
+		long t1 = System.currentTimeMillis();
+		int i = 0;
+		while(true) {
+			i = i + 1;
+			if((System.currentTimeMillis() - t1) > 1000) {
+				break;
+			}
+		}
+		System.out.println(i / 1000);
+	}
 }

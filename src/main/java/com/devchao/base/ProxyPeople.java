@@ -14,8 +14,7 @@ public class ProxyPeople implements MethodInterceptor {
 		        System.out.println("After:" + method); 
 		        return object;
 	    	} else {
-	    		
-	    	return proxy.invokeSuper(obj, arg);
+	    		return proxy.invokeSuper(obj, arg);
 	    	}
 	    }
  
